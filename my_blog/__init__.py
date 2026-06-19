@@ -1,9 +1,11 @@
 """
 my_blog 项目初始化文件
-使用 pymysql 作为 MySQL 驱动，并将其伪装成 MySQLdb
-以兼容 Django ORM 对 MySQLdb 的引用
+本地环境：使用 pymysql 作为 MySQL 驱动
+云端环境：使用 psycopg2 作为 PostgreSQL 驱动（无需 pymysql）
 """
-import pymysql
+import os
 
-# 将 pymysql 注册为 MySQLdb，使 Django ORM 可正常使用 MySQL
-pymysql.install_as_MySQLdb()
+# 仅在本地 MySQL 环境下注册 pymysql
+if not os.getenv('DATABASE_URL'):
+    import pymysql
+    pymysql.install_as_MySQLdb()
