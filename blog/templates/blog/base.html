@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <!-- 自定义样式（添加版本号防止缓存） -->
-    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}?v=20260619g">
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
     {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -57,7 +57,7 @@
         });
     </script>
     <!-- 交互动效脚本（添加版本号防止缓存） -->
-    <script src="{% static 'blog/js/main.js' %}?v=20260619g"></script>
+    <script src="{% static 'blog/js/main.js' %}"></script>
     {% block extra_script %}{% endblock %}
 </body>
 </html>

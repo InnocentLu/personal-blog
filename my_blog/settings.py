@@ -75,11 +75,11 @@ WSGI_APPLICATION = 'my_blog.wsgi.application'
 
 # 数据库配置：使用 dj_database_url 解析 Railway 的 DATABASE_URL
 # Railway 自动注入 DATABASE_URL（PostgreSQL 连接字符串）
+# 注意：不启用 ssl_require，Railway 内部连接不支持 SSL
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
         conn_max_age=600,
-        ssl_require=True,
     )
 }
 
