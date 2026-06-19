@@ -4,9 +4,9 @@
     <h3 class="sidebar-title">关于博主</h3>
     <div class="blogger-avatar">
         {% if blog_info.avatar %}
-            <img src="{{ blog_info.avatar.url }}" alt="{{ blog_info.name }}">
+            <img src="{{ blog_info.avatar.url }}" alt="{{ blog_info.name }}" onerror="this.src='{% static 'blog/img/avatar.jpg' %}'; this.onerror=null;">
         {% else %}
-            <div class="avatar-placeholder">{{ blog_info.name|first }}</div>
+            <img src="{% static 'blog/img/avatar.jpg' %}" alt="{{ blog_info.name }}">
         {% endif %}
     </div>
     <div class="blogger-info">

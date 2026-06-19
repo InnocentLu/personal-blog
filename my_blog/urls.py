@@ -11,6 +11,7 @@ urlpatterns = [
     path('', include('blog.urls')),
 ]
 
-# 开发环境下提供媒体文件访问
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# 媒体文件访问路由
+# 开发环境：DEBUG=True 时由 Django 开发服务器提供
+# 生产环境：DEBUG=False 时也提供服务（Railway 容器内 media 临时存储）
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
