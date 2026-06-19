@@ -81,20 +81,28 @@ WSGI_APPLICATION = 'my_blog.wsgi.application'
 
 
 # 数据库配置：自动检测环境
-# 云端（Railway）：通过 DATABASE_URL 环境变量使用 PostgreSQL
+# 云端（Railway）：通过 DATABASE_URL 环境变量自动识别 MySQL 或 PostgreSQL
 # 本地：通过 .env 配置使用 MySQL
 database_url = os.getenv('DATABASE_URL')
 if database_url:
-    # 云端环境：解析 DATABASE_URL（格式：postgres://user:pass@host:port/dbname）
+    # 云端环境：解析 DATABASE_URL
+    # 格式：mysql://user:pass@host:port/dbname 或 postgres://user:pass@host:port/dbname
     parsed = urlparse(database_url)
+    # 根据 URL 协议自动选择数据库引擎
+    if parsed.scheme.startswith('postgres'):
+        db_engine = 'django.db.backends.postgresql'
+        db_port = str(parsed.port or 5432)
+    else:
+        db_engine = 'django.db.backends.mysql'
+        db_port = str(parsed.port or 3306)
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
+            'ENGINE': db_engine,
             'NAME': parsed.path.lstrip('/'),
-            'USER': parsed.username or 'postgres',
+            'USER': parsed.username or 'root',
             'PASSWORD': parsed.password or '',
             'HOST': parsed.hostname or 'localhost',
-            'PORT': str(parsed.port or 5432),
+            'PORT': db_port,
         }
     }
 else:
