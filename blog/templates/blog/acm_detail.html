@@ -1,0 +1,62 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ template.title }} - 算法板子{% endblock %}
+
+{% block content %}
+<article class="acm-detail-page">
+    <!-- 头部信息 -->
+    <header class="acm-detail-header">
+        <div class="acm-detail-tags">
+            <span class="acm-cat-tag cat-{{ template.category }}">
+                {{ template.get_category_display }}
+            </span>
+            {% if template.problem_id %}
+                <span class="acm-problem-id-tag">{{ template.problem_id }}</span>
+            {% endif %}
+            <span class="acm-lang-tag">C++</span>
+        </div>
+        <h1 class="acm-detail-title">{{ template.title }}</h1>
+        <div class="acm-detail-meta">
+            <span>浏览 {{ template.views }} 次</span>
+            <span>·</span>
+            <span>{{ template.created_at|date:"Y-m-d" }}</span>
+        </div>
+    </header>
+
+    <!-- 代码内容（highlight.js 语法高亮） -->
+    <div class="acm-code-section">
+        <div class="acm-code-header">
+            <span class="acm-code-label">代码实现</span>
+            <span class="acm-code-lang">C++</span>
+        </div>
+        <pre><code class="language-cpp">{{ template.code }}</code></pre>
+    </div>
+
+    <!-- 题目说明 -->
+    {% if template.description %}
+    <div class="acm-desc-section">
+        <h3>题目说明</h3>
+        <p>{{ template.description|linebreaksbr }}</p>
+    </div>
+    {% endif %}
+
+    <!-- 同分类相关板子 -->
+    {% if related %}
+    <div class="acm-related">
+        <h3>同分类板子</h3>
+        <div class="acm-related-list">
+            {% for item in related %}
+                <a href="{% url 'blog:acm_detail' item.pk %}" class="acm-related-item">
+                    {{ item.title }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- 返回链接 -->
+    <div class="back-link">
+        <a href="{% url 'blog:acm_list' %}">← 返回板子列表</a>
+    </div>
+</article>
+{% endblock %}

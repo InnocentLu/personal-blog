@@ -1,0 +1,79 @@
+{% load static %}
+<!-- 左侧栏：快捷导航 -->
+<div class="left-sidebar-card nav-card">
+    <h3 class="sidebar-title">快捷导航</h3>
+    <ul class="left-nav-list">
+        <li>
+            <a href="{% url 'blog:home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-text">首页</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'blog:acm_list' %}" class="{% if request.resolver_match.url_name == 'acm_list' or request.resolver_match.url_name == 'acm_detail' %}active{% endif %}">
+                <span class="nav-icon">💻</span>
+                <span class="nav-text">算法板子</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'blog:about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                <span class="nav-icon">👤</span>
+                <span class="nav-text">关于我</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!-- 内容分类筛选 -->
+<div class="left-sidebar-card">
+    <h3 class="sidebar-title">内容分类</h3>
+    <ul class="left-cat-list">
+        <li>
+            <a href="{% url 'blog:home' %}" class="{% if not current_type %}active{% endif %}">
+                <span class="cat-dot dot-all"></span>
+                <span class="cat-name">全部内容</span>
+                <span class="cat-count">{{ total_count }}</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'blog:home' %}?type=blog" class="{% if current_type == 'blog' %}active{% endif %}">
+                <span class="cat-dot dot-blog"></span>
+                <span class="cat-name">博客文章</span>
+                <span class="cat-count">{{ blog_count }}</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'blog:home' %}?type=video" class="{% if current_type == 'video' %}active{% endif %}">
+                <span class="cat-dot dot-video"></span>
+                <span class="cat-name">视频内容</span>
+                <span class="cat-count">{{ video_count }}</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'blog:home' %}?type=code" class="{% if current_type == 'code' %}active{% endif %}">
+                <span class="cat-dot dot-code"></span>
+                <span class="cat-name">代码片段</span>
+                <span class="cat-count">{{ code_count }}</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!-- 站点统计 -->
+<div class="left-sidebar-card stats-card">
+    <h3 class="sidebar-title">站点统计</h3>
+    <div class="left-stats">
+        <div class="left-stat-row">
+            <span class="left-stat-label">总浏览量</span>
+            <span class="left-stat-value">{{ total_views }}</span>
+        </div>
+        <div class="left-stat-row">
+            <span class="left-stat-label">内容总数</span>
+            <span class="left-stat-value">{{ total_count }}</span>
+        </div>
+        <div class="left-stat-row">
+            <span class="left-stat-label">算法板子</span>
+            <span class="left-stat-value">{{ acm_count }}</span>
+        </div>
+    </div>
+</div>

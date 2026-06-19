@@ -1,0 +1,75 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ content.title }} - 陆焱烨的技术博客{% endblock %}
+
+{% block content %}
+<article class="detail-page">
+    <!-- 内容头部信息 -->
+    <header class="detail-header">
+        <span class="type-tag type-{{ content.content_type }}">
+            {{ content.get_content_type_display }}
+        </span>
+        <h1 class="detail-title">{{ content.title }}</h1>
+        <div class="detail-meta">
+            <span class="meta-time">发布于 {{ content.published_at|date:"Y-m-d H:i" }}</span>
+            <span class="meta-views">浏览 {{ content.views }}</span>
+        </div>
+    </header>
+
+    <!-- 内容封面 -->
+    {% if content.cover %}
+        <div class="detail-cover">
+            <img src="{{ content.cover.url }}" alt="{{ content.title }}">
+        </div>
+    {% endif %}
+
+    <!-- 根据内容类型动态渲染 -->
+    <div class="detail-body">
+        {% if content.content_type == 'blog' %}
+            <!-- 博客文章：正文分段排版 -->
+            <div class="blog-body">
+                {{ content.body|linebreaks }}
+            </div>
+
+        {% elif content.content_type == 'video' %}
+            <!-- 视频内容：HTML5 播放器 -->
+            <div class="video-section">
+                {% if content.video_file %}
+                    <video controls class="video-player">
+                        <source src="{{ content.video_file.url }}" type="video/mp4">
+                        您的浏览器不支持 HTML5 视频播放。
+                    </video>
+                {% else %}
+                    <div class="video-placeholder">暂无视频文件</div>
+                {% endif %}
+                {% if content.video_desc %}
+                    <div class="video-desc">
+                        <h3>视频简介</h3>
+                        <p>{{ content.video_desc|linebreaksbr }}</p>
+                    </div>
+                {% endif %}
+            </div>
+
+        {% elif content.content_type == 'code' %}
+            <!-- 代码片段：highlight.js 语法高亮 -->
+            <div class="code-section">
+                <div class="code-header">
+                    <span class="code-lang">{{ content.language }}</span>
+                </div>
+                <pre><code class="language-{{ content.language }}">{{ content.code_content }}</code></pre>
+                {% if content.code_desc %}
+                    <div class="code-desc">
+                        <h3>代码说明</h3>
+                        <p>{{ content.code_desc|linebreaksbr }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- 返回首页 -->
+    <div class="back-link">
+        <a href="{% url 'blog:home' %}">← 返回首页</a>
+    </div>
+</article>
+{% endblock %}

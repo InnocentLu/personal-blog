@@ -1,0 +1,6 @@
+# Django 个人技术博客项目依赖
+Django==4.2.11
+PyMySQL==1.1.0
+mysqlclient==2.2.4
+Pillow==10.3.0
+python-dotenv==1.0.1

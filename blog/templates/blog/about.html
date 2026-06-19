@@ -1,0 +1,86 @@
+{% extends 'blog/base.html' %}
+{% load blog_filters %}
+
+{% block title %}关于我 - 陆焱烨的技术博客{% endblock %}
+
+{% block content %}
+<section class="about-page">
+    <h1 class="page-title">关于我</h1>
+
+    <!-- 个人介绍卡片 -->
+    <div class="about-card profile-card">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                {% if personal_info.avatar %}
+                    <img src="{{ personal_info.avatar.url }}" alt="{{ personal_info.name }}">
+                {% else %}
+                    <div class="avatar-placeholder">{{ personal_info.name|first }}</div>
+                {% endif %}
+            </div>
+            <div class="profile-basic">
+                <h2 class="profile-name">{{ personal_info.name }}</h2>
+                <p class="profile-grade">{{ personal_info.grade_major }}</p>
+            </div>
+        </div>
+
+        <!-- 个人简介 -->
+        {% if personal_info.intro %}
+        <div class="profile-section">
+            <h3 class="section-title">个人简介</h3>
+            <div class="section-content">
+                <p>{{ personal_info.intro|linebreaksbr }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- 学业背景 -->
+        <div class="profile-section">
+            <h3 class="section-title">学业背景</h3>
+            <div class="section-content">
+                <p>{{ personal_info.grade_major }}</p>
+            </div>
+        </div>
+
+        <!-- 技术栈 -->
+        {% if personal_info.tech_stack %}
+        <div class="profile-section">
+            <h3 class="section-title">技术栈</h3>
+            <div class="tech-stack-list">
+                {% for tech in personal_info.tech_stack|split:"," %}
+                    {% if tech.strip %}
+                        <span class="tech-tag">{{ tech.strip }}</span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- 荣誉奖项板块 -->
+    <div class="about-card honor-card">
+        <h3 class="card-title">荣誉奖项</h3>
+        {% if honors %}
+            <ul class="honor-list">
+                {% for honor in honors %}
+                    <li class="honor-item">
+                        <div class="honor-icon-wrap">
+                            <span class="honor-medal">★</span>
+                        </div>
+                        <div class="honor-content">
+                            <h4 class="honor-title">{{ honor.title }}</h4>
+                            {% if honor.description %}
+                                <p class="honor-desc">{{ honor.description }}</p>
+                            {% endif %}
+                            {% if honor.award_date %}
+                                <span class="honor-date">{{ honor.award_date|date:"Y年m月d日" }}</span>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty-tip">暂无荣誉记录</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% load static %}
+<!-- 侧边栏：关于博主卡片 -->
+<div class="sidebar-card blogger-card">
+    <h3 class="sidebar-title">关于博主</h3>
+    <div class="blogger-avatar">
+        {% if blog_info.avatar %}
+            <img src="{{ blog_info.avatar.url }}" alt="{{ blog_info.name }}">
+        {% else %}
+            <div class="avatar-placeholder">{{ blog_info.name|first }}</div>
+        {% endif %}
+    </div>
+    <div class="blogger-info">
+        <h4 class="blogger-name">{{ blog_info.name }}</h4>
+        <p class="blogger-grade">{{ blog_info.grade_major }}</p>
+        {% if blog_info.intro %}
+            <p class="blogger-intro">{{ blog_info.intro|truncatechars:60 }}</p>
+        {% endif %}
+    </div>
+
+    <!-- 核心荣誉精简展示 -->
+    {% if honors %}
+    <div class="blogger-honors">
+        <h5 class="honors-mini-title">核心荣誉</h5>
+        <ul class="honors-mini-list">
+            {% for honor in honors|slice:":3" %}
+                <li>
+                    <span class="honor-icon">★</span>
+                    {{ honor.title }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- 博客内容统计 -->
+    <div class="blogger-stats">
+        <div class="stat-item">
+            <span class="stat-num">{{ total_count }}</span>
+            <span class="stat-label">总内容</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">{{ blog_count }}</span>
+            <span class="stat-label">博客</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">{{ video_count }}</span>
+            <span class="stat-label">视频</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">{{ code_count }}</span>
+            <span class="stat-label">代码</span>
+        </div>
+    </div>
+
+    <a href="{% url 'blog:about' %}" class="about-link">查看完整介绍 →</a>
+</div>
+
+<!-- 热门内容板块 -->
+{% if hot_contents %}
+<div class="sidebar-card hot-card">
+    <h3 class="sidebar-title">热门内容</h3>
+    <ul class="hot-list">
+        {% for item in hot_contents %}
+            <li>
+                <span class="hot-rank">{{ forloop.counter }}</span>
+                <a href="{% url 'blog:detail' item.pk %}">{{ item.title|truncatechars:20 }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}

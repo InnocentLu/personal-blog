@@ -1,0 +1,52 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}首页 - 陆焱烨的技术博客{% endblock %}
+
+{% block content %}
+<section class="content-feed">
+    <div class="feed-header">
+        <h1 class="feed-title">内容信息流</h1>
+        <div class="feed-filter">
+            <a href="{% url 'blog:home' %}" class="{% if not current_type %}active{% endif %}">全部</a>
+            <a href="{% url 'blog:home' %}?type=blog" class="{% if current_type == 'blog' %}active{% endif %}">博客</a>
+            <a href="{% url 'blog:home' %}?type=video" class="{% if current_type == 'video' %}active{% endif %}">视频</a>
+            <a href="{% url 'blog:home' %}?type=code" class="{% if current_type == 'code' %}active{% endif %}">代码</a>
+        </div>
+    </div>
+
+    {% if contents %}
+        <div class="content-list">
+            {% for content in contents %}
+                <article class="content-card">
+                    <a href="{% url 'blog:detail' content.pk %}" class="card-link">
+                        <div class="card-cover">
+                            {% if content.cover %}
+                                <img src="{{ content.cover.url }}" alt="{{ content.title }}">
+                            {% else %}
+                                <div class="cover-placeholder cover-{{ content.content_type }}">
+                                    <span>{{ content.get_content_type_display }}</span>
+                                </div>
+                            {% endif %}
+                            <span class="type-tag type-{{ content.content_type }}">
+                                {{ content.get_content_type_display }}
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title">{{ content.title }}</h2>
+                            <p class="card-summary">{{ content.summary|default:"暂无简介" }}</p>
+                            <div class="card-meta">
+                                <span class="meta-time">{{ content.published_at|date:"Y-m-d H:i" }}</span>
+                                <span class="meta-views">浏览 {{ content.views }}</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>暂无内容，请前往后台添加。</p>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}陆焱烨的个人博客{% endblock %}</title>
+    <!-- 引入 highlight.js 用于代码语法高亮 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- 自定义样式（添加版本号防止缓存） -->
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}?v=20260619g">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- 顶部固定导航栏 -->
+    <header class="navbar">
+        <div class="container navbar-inner">
+            <a href="{% url 'blog:home' %}" class="site-name">陆焱烨的技术博客</a>
+            <nav class="nav-links">
+                <a href="{% url 'blog:home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">首页</a>
+                <a href="{% url 'blog:acm_list' %}" class="{% if request.resolver_match.url_name == 'acm_list' or request.resolver_match.url_name == 'acm_detail' %}active{% endif %}">算法板子</a>
+                <a href="{% url 'blog:about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">关于我</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主体内容区：三栏布局 -->
+    <main class="container main-layout">
+        <!-- 左侧导航栏 -->
+        <aside class="left-sidebar">
+            {% include 'blog/partials/left_sidebar.html' %}
+        </aside>
+        <!-- 中间内容主区域 -->
+        <div class="content-area">
+            {% block content %}{% endblock %}
+        </div>
+        <!-- 右侧侧边栏 -->
+        <aside class="sidebar">
+            {% include 'blog/partials/sidebar.html' %}
+        </aside>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 陆焱烨的个人技术博客 · 计算机242班</p>
+        </div>
+    </footer>
+
+    <!-- 初始化 highlight.js 代码高亮 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+    <!-- 交互动效脚本（添加版本号防止缓存） -->
+    <script src="{% static 'blog/js/main.js' %}?v=20260619g"></script>
+    {% block extra_script %}{% endblock %}
+</body>
+</html>

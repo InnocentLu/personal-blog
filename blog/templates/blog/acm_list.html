@@ -1,0 +1,52 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}算法板子 - 陆焱烨的技术博客{% endblock %}
+
+{% block content %}
+<section class="acm-page">
+    <div class="acm-header">
+        <h1 class="page-title">算法板子 · 动态规划</h1>
+        <p class="acm-subtitle">ACM 竞赛算法模板集合，按分类整理，持续更新中</p>
+    </div>
+
+    <!-- 分类筛选 -->
+    <div class="acm-categories">
+        <a href="{% url 'blog:acm_list' %}" class="{% if not current_category %}active{% endif %}">
+            全部 <span class="cat-badge">{{ templates|length }}</span>
+        </a>
+        {% for code, info in category_stats.items %}
+            <a href="{% url 'blog:acm_list' %}?category={{ code }}"
+               class="{% if current_category == code %}active{% endif %}">
+                {{ info.name }} <span class="cat-badge">{{ info.count }}</span>
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- 板子列表 -->
+    {% if templates %}
+        <div class="acm-template-list">
+            {% for tpl in templates %}
+                <a href="{% url 'blog:acm_detail' tpl.pk %}" class="acm-template-card">
+                    <div class="acm-card-left">
+                        <span class="acm-cat-tag cat-{{ tpl.category }}">{{ tpl.get_category_display }}</span>
+                        {% if tpl.problem_id %}
+                            <span class="acm-problem-id">{{ tpl.problem_id }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="acm-card-body">
+                        <h3 class="acm-card-title">{{ tpl.title }}</h3>
+                        <span class="acm-lang">C++</span>
+                    </div>
+                    <div class="acm-card-meta">
+                        <span class="acm-views">浏览 {{ tpl.views }}</span>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>暂无板子内容</p>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
