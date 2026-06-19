@@ -1,10 +1,12 @@
 """
 Django 项目核心配置文件
-配置 MySQL 数据库、模板、静态文件、媒体文件等
+配置数据库、模板、静态文件、媒体文件等
 敏感信息通过 python-dotenv 从 .env 文件读取
+支持本地 MySQL 和云端 PostgreSQL 自动切换
 """
 import os
 from pathlib import Path
+from urllib.parse import urlparse
 from dotenv import load_dotenv
 
 # 项目根目录
@@ -45,6 +47,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# 生产环境添加 WhiteNoise 中间件（静态文件服务）
+try:
+    import whitenoise.middleware
+    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+except ImportError:
+    pass
+
 # 根路由配置
 ROOT_URLCONF = 'my_blog.urls'
 
@@ -71,22 +80,39 @@ TEMPLATES = [
 WSGI_APPLICATION = 'my_blog.wsgi.application'
 
 
-# 数据库配置：MySQL（敏感信息从环境变量读取）
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME', 'my_weblog'),
-        'USER': os.getenv('DB_USER', 'root'),
-        'PASSWORD': os.getenv('DB_PASSWORD', ''),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '3306'),
-        # 字符集配置，确保支持 utf8mb4（如 emoji 表情）
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+# 数据库配置：自动检测环境
+# 云端（Railway）：通过 DATABASE_URL 环境变量使用 PostgreSQL
+# 本地：通过 .env 配置使用 MySQL
+database_url = os.getenv('DATABASE_URL')
+if database_url:
+    # 云端环境：解析 DATABASE_URL（格式：postgres://user:pass@host:port/dbname）
+    parsed = urlparse(database_url)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': parsed.path.lstrip('/'),
+            'USER': parsed.username or 'postgres',
+            'PASSWORD': parsed.password or '',
+            'HOST': parsed.hostname or 'localhost',
+            'PORT': str(parsed.port or 5432),
+        }
     }
-}
+else:
+    # 本地环境：使用 MySQL
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv('DB_NAME', 'my_weblog'),
+            'USER': os.getenv('DB_USER', 'root'),
+            'PASSWORD': os.getenv('DB_PASSWORD', ''),
+            'HOST': os.getenv('DB_HOST', 'localhost'),
+            'PORT': os.getenv('DB_PORT', '3306'),
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
+        }
+    }
 
 
 # 密码验证规则
@@ -110,6 +136,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+# 生产环境静态文件收集目录
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 # 媒体文件配置（用户上传的图片、视频）

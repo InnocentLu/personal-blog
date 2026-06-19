@@ -103,3 +103,7 @@ dmypy/
 # ===== Git LFS =====
 # Git LFS 钩子目录（自动生成）
 .git/hooks/
+
+# ===== 内网穿透工具（不提交） =====
+cloudflared.exe
+ngrok.exe

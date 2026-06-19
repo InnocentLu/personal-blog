@@ -1,0 +1,368 @@
+[
+{
+  "model": "blog.personalinfo",
+  "pk": 1,
+  "fields": {
+    "name": "陆焱烨",
+    "grade_major": "计算机242班 大二在读",
+    "avatar": "avatars/mine.jpg",
+    "intro": "计算机242班大二在读学生，热爱编程与技术分享，专注于算法与全栈开发学习。",
+    "tech_stack": "Python,Java,C++,HTML/CSS,JavaScript",
+    "updated_at": "2026-06-19T11:49:19.039"
+  }
+},
+{
+  "model": "blog.honor",
+  "pk": 1,
+  "fields": {
+    "title": "蓝桥杯全国一等奖",
+    "description": "在蓝桥杯全国软件和信息技术专业人才大赛中获得全国一等奖。",
+    "award_date": null,
+    "order": 1,
+    "created_at": "2026-06-19T11:27:59.002"
+  }
+},
+{
+  "model": "blog.honor",
+  "pk": 2,
+  "fields": {
+    "title": "浙江省大学生程序设计竞赛铜牌",
+    "description": "在浙江省大学生程序设计竞赛中荣获铜牌。",
+    "award_date": null,
+    "order": 2,
+    "created_at": "2026-06-19T11:27:59.003"
+  }
+},
+{
+  "model": "blog.content",
+  "pk": 1,
+  "fields": {
+    "title": "Django 学习笔记：从入门到精通",
+    "content_type": "blog",
+    "summary": "本文记录了 Django 框架的学习过程，包括 MTV 架构、路由配置、模型定义等核心知识点。",
+    "cover": "",
+    "published_at": "2026-06-19T11:29:23.815",
+    "views": 2,
+    "body": "Django 是一个基于 Python 的高级 Web 框架。\n\n它采用了 MTV（Model-Template-View）架构模式，使得开发者可以快速构建高质量的 Web 应用。\n\nDjango 的核心特性包括：\n- 自带 ORM，支持多种数据库\n- 强大的后台管理系统\n- 完善的 URL 路由机制\n- 模板引擎支持继承与复用",
+    "video_file": "",
+    "video_desc": "",
+    "language": "python",
+    "code_content": "",
+    "code_desc": ""
+  }
+},
+{
+  "model": "blog.content",
+  "pk": 2,
+  "fields": {
+    "title": "Python 快速排序算法讲解",
+    "content_type": "code",
+    "summary": "通过 Python 实现快速排序算法，并附带详细注释说明算法原理。",
+    "cover": "",
+    "published_at": "2026-06-19T11:29:23.825",
+    "views": 2,
+    "body": "",
+    "video_file": "",
+    "video_desc": "",
+    "language": "python",
+    "code_content": "def quick_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[len(arr) // 2]\n    left = [x for x in arr if x < pivot]\n    middle = [x for x in arr if x == pivot]\n    right = [x for x in arr if x > pivot]\n    return quick_sort(left) + middle + quick_sort(right)\n\nif __name__ == \"__main__\":\n    data = [3, 6, 8, 10, 1, 2, 1]\n    print(quick_sort(data))",
+    "code_desc": "快速排序采用分治思想，平均时间复杂度为 O(n log n)。"
+  }
+},
+{
+  "model": "blog.content",
+  "pk": 3,
+  "fields": {
+    "title": "Django 学习笔记：从入门到精通",
+    "content_type": "blog",
+    "summary": "本文记录了 Django 框架的学习过程，包括 MTV 架构、路由配置、模型定义等核心知识点。",
+    "cover": "",
+    "published_at": "2026-06-19T11:29:41.967",
+    "views": 3,
+    "body": "Django 是一个基于 Python 的高级 Web 框架。\n\n它采用了 MTV（Model-Template-View）架构模式，使得开发者可以快速构建高质量的 Web 应用。\n\nDjango 的核心特性包括：\n- 自带 ORM，支持多种数据库\n- 强大的后台管理系统\n- 完善的 URL 路由机制\n- 模板引擎支持继承与复用",
+    "video_file": "",
+    "video_desc": "",
+    "language": "python",
+    "code_content": "",
+    "code_desc": ""
+  }
+},
+{
+  "model": "blog.content",
+  "pk": 4,
+  "fields": {
+    "title": "Python 快速排序算法讲解",
+    "content_type": "code",
+    "summary": "通过 Python 实现快速排序算法，并附带详细注释说明算法原理。",
+    "cover": "",
+    "published_at": "2026-06-19T11:29:41.976",
+    "views": 2,
+    "body": "",
+    "video_file": "",
+    "video_desc": "",
+    "language": "python",
+    "code_content": "def quick_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[len(arr) // 2]\n    left = [x for x in arr if x < pivot]\n    middle = [x for x in arr if x == pivot]\n    right = [x for x in arr if x > pivot]\n    return quick_sort(left) + middle + quick_sort(right)\n\nif __name__ == \"__main__\":\n    data = [3, 6, 8, 10, 1, 2, 1]\n    print(quick_sort(data))",
+    "code_desc": "快速排序采用分治思想，平均时间复杂度为 O(n log n)。"
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 1,
+  "fields": {
+    "title": "采药",
+    "category": "01背包",
+    "problem_id": "P1048",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\nint t,m;\nint w[200],v[200];\nint dp[10001];\nint main(){\n    cin>>t>>m;\n    for(int i=0;i<m;i++){\n        cin>>w[i]>>v[i];\n    }\n    for(int i=0;i<m;i++){\n        for(int j=t;j>=w[i];j--){\n            dp[j] = max(dp[j], dp[j-w[i]] + v[i]);\n        }\n    }\n    cout<<dp[t]<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:06.918",
+    "views": 2
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 2,
+  "fields": {
+    "title": "开心的金明",
+    "category": "01背包",
+    "problem_id": "P1060",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\nint n,m;\nint w[50],v[50];\nint dp[300005];\nint main(){\n    cin>>n>>m;\n    for(int i=0;i<m;i++){\n        int k;\n        cin>>w[i]>>k;\n        v[i]=k*w[i];\n    }\n    for(int i=0;i<m;i++){\n        for(int j=n;j>=w[i];j--){\n            dp[j]=max(dp[j],dp[j-w[i]]+v[i]);\n        }\n    }\n    cout<<dp[n]<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:06.937",
+    "views": 0
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 3,
+  "fields": {
+    "title": "小A点菜",
+    "category": "01背包",
+    "problem_id": "P1164",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nint m,n;\nint a[105];\nint dp[100005];\nint main(){\n    cin>>n>>m;\n    for(int i=0;i<n;i++) cin>>a[i];\n    dp[0]=1;\n    for(int i=0;i<n;i++){\n        for(int j=m;j>=a[i];j--){\n            dp[j]+=dp[j-a[i]];\n        }\n    }\n    cout<<dp[m]<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:06.962",
+    "views": 0
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 4,
+  "fields": {
+    "title": "搭配购买_并查集",
+    "category": "01背包",
+    "problem_id": "P1455",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nll n,m,w;\nll c[10005],d[10005],fa[10005],mw[10005],v[10005];\nll dp[5004],money[10005],value[10005];\nbool vis[10005];\nvoid init(ll x){\n    for(ll i=1;i<=x;i++)fa[i]=i;\n}\nint find(ll x){\n    if(fa[x]==x)return x;\n    return fa[x]=find(fa[x]);\n}\nvoid join(ll x,ll y){\n    x=find(x);\n    y=find(y);\n    if(x==y)return;\n    fa[x]=y;\n\n}\nbool isSame(ll x,ll y){\n    return find(x)==find(y);\n}\nint main(){\n    cin>>n>>m>>w;\n    init(n);\n    for(ll i=1;i<=n;i++){\n        cin>>c[i]>>d[i];\n    }\n    for(ll i=1;i<=m;i++){\n        ll u,v;\n        cin>>u>>v;\n        join(u,v);\n    }\n    for(ll i=1;i<=n;i++){\n        ll root = find(i);\n        vis[root] = true;\n        mw[root] += c[i];\n        v[root] += d[i];\n    }\n    ll cnt=0;\n    for(ll i=1;i<=n;i++){\n        if(vis[i]){\n            money[cnt] = mw[i];\n            value[cnt++] = v[i];\n        }\n    }\n    for(ll i=0;i<=cnt;i++){\n        for(ll j=w;j>=money[i];j--){\n            dp[j]=max(dp[j],dp[j-money[i]]+value[i]);\n        }\n    }\n    cout<<dp[w]<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:06.980",
+    "views": 0
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 5,
+  "fields": {
+    "title": "集合SubsetSums",
+    "category": "01背包",
+    "problem_id": "P1466",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nll n,ans,maxn;\nll dp[1003];\nint main(){\n    cin>>n;\n    dp[0]=1;\n    maxn=n*(n+1)/2;\n    if(maxn%2){\n        cout<<0<<endl;\n        return 0;\n    }\n    for(ll i=1;i<=n;i++){\n        for(ll j=maxn/2;j>=i;j--){                                                            \n            dp[j]+=dp[j-i];\n        }\n    }\n    cout<<dp[maxn/2]/2<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.000",
+    "views": 0
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 6,
+  "fields": {
+    "title": "找啊找啊找GF",
+    "category": "01背包",
+    "problem_id": "P1509",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nint n,m,r,ans;\nint rmb[102],rp[102],times[102];\nint dp[102][1003][2];//i:money, j:rp\nint main(){\n    cin>>n;\n    for(int i=1;i<=n;i++){\n        cin>>rmb[i]>>rp[i]>>times[i];\n    }\n    cin>>m>>r;\n    for(int k=1;k<=n;k++){\n        for(int i=m;i>=rmb[k];i--){\n           for(int j=r;j>=rp[k];j--){\n                if(dp[i-rmb[k]][j-rp[k]][0]+1>dp[i][j][0]){\n                  dp[i][j][0]=dp[i-rmb[k]][j-rp[k]][0]+1;\n                  dp[i][j][1]=dp[i-rmb[k]][j-rp[k]][1]+times[k];\n                }\n                else if(dp[i-rmb[k]][j-rp[k]][0]+1==dp[i][j][0]){\n                  dp[i][j][1]=min(dp[i][j][1], dp[i-rmb[k]][j-rp[k]][1]+times[k]);\n                }\n            }\n        }\n    }\n    cout<<dp[m][r][1]<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.018",
+    "views": 0
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 7,
+  "fields": {
+    "title": "精卫填海",
+    "category": "01背包",
+    "problem_id": "P1510",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nint n,v,c,ans;\nint k[10004],m[10004];\nint dp[10004];// dp[i]表示体积为i的最小花费\nint main(){\n    cin>>v>>n>>c;\n    for(int i=0;i<n;i++)cin>>k[i]>>m[i];\n    for(int i=0;i<n;i++){\n        for(int j=c;j>=m[i];j--){\n            dp[j]=max(dp[j],dp[j-m[i]]+k[i]);\n        }\n    }\n    for(int i=0;i<=v;i++){\n        if(dp[i]>=v){\n             cout<<c-i<<endl;;\n             return 0;\n        }\n    }\n    cout<<\"Impossible\"<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.033",
+    "views": 0
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 8,
+  "fields": {
+    "title": "最大约数和",
+    "category": "01背包",
+    "problem_id": "P1734",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nint s;\nint dp[1003];\nint v[1003];\nint q(int x){\n    ll ans=0;\n    if(x==1)return 0;\n    for(int i=1;i<x;i++){\n        if(x%i==0){\n            ans+=i;\n        }\n    }\n    return ans;\n}\nint main(){\n    cin>>s;\n    for(int i=1;i<=s;i++){\n        v[i]=q(i);\n    }\n    for(int i=1;i<=s;i++){\n        for(int j=s;j>=i;j--){\n            dp[j]=max(dp[j],dp[j-i]+v[i]);\n        }\n    }\n    cout<<dp[s]<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.049",
+    "views": 1
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 9,
+  "fields": {
+    "title": "_5倍经验日",
+    "category": "01背包",
+    "problem_id": "P1802",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nll n,x;\nll lose[1003],win[1003],w[1003];\nll dp[1003];\nint main(){\n    cin>>n>>x;\n    for(ll i=0;i<n;i++) cin>>lose[i]>>win[i]>>w[i];\n    for(ll i=0;i<n;i++){\n        for(ll j=x;j>=0;j--){\n            if(j>=w[i]){\n                dp[j]=max(dp[j]+lose[i],dp[j-w[i]]+win[i]);\n            }\n            else dp[j]+= lose[i];\n        }\n    }\n    cout<<dp[x]*5<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.064",
+    "views": 0
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 10,
+  "fields": {
+    "title": "小书童__刷题大军",
+    "category": "01背包",
+    "problem_id": "P1926",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nint n,m,k,r,ans,res,cnt;\nint dp[155];\nint  t[20];\nint v[50];\nint w[50];\nint main(){\n    cin>>n>>m>>k>>r;\n    for(int i=1;i<=n;i++){\n        cin>>t[i];\n    }\n    for(int i=1;i<=m;i++){\n        cin>>w[i];\n    }\n    for(int i=1;i<=m;i++){\n        cin>>v[i];\n    }\n    for(int i=1;i<=m;i++){\n        for(int j=r;j>=w[i];j--){\n            dp[j]=max(dp[j],dp[j-w[i]]+v[i]);\n        }\n    }\n    ans=INT_MAX;\n    for(int i=1;i<=r;i++){\n        if(dp[i]>=k){\n            ans=min(ans, i);\n        }\n    }\n    sort(t+1, t+n+1);\n    res=r-ans;\n    ll sum=0;\n    for(int i=1;i<=n;i++){\n        if(sum+t[i]<=res){\n            sum+=t[i];\n            cnt++;\n        } else {\n            break;\n        }\n       \n    }\n    cout<<cnt<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.080",
+    "views": 1
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 11,
+  "fields": {
+    "title": "砝码称重",
+    "category": "01背包",
+    "problem_id": "P2347",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nint a[7],cnt,maxn,total;\nint b[7]={0,1,2,3,5,10,20};\nvector<bool>dp(1003);\nint main(){\n    for(int i=1;i<=6;i++){\n        cin>>a[i];\n        maxn+=a[i]*b[i];\n    }\n    dp[0]=true;\n    for(int i=1;i<=6;i++){\n        for(int k=0;k<a[i];k++){\n            for(int j=maxn;j>=b[i];j--){\n                if(dp[j-b[i]]){\n                    dp[j]=true;\n                }\n            }\n        }\n    }\n    for(int i=1;i<=maxn;i++){\n        if(dp[i])total++;\n    }\n    cout<<\"Total=\"<<total<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.095",
+    "views": 1
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 12,
+  "fields": {
+    "title": "yyy2015c01的U盘",
+    "category": "01背包",
+    "problem_id": "P2370",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nll n,p,s,k;\nll w[1003],v[1003];\nll dp[1003][1003];\nint main(){\n    cin>>n>>p>>s;\n    for(ll i=1;i<=n;i++){\n        cin>>w[i]>>v[i];\n        k=max(k,w[i]);\n    }\n    for(ll i=1;i<=k;i++){\n        for(ll z=1;z<=n;z++){\n            for(ll j=s;j>=w[z];j--){\n                if(w[z]<=i){\n                    dp[i][j]=max(dp[i][j],dp[i][j-w[z]]+v[z]);\n                }\n            }\n        }\n    }\n    for(ll i=1;i<=k;i++){\n        if(dp[i][s]>=p){\n            cout<<i<<endl; \n           return 0;\n        }\n    }\n    cout<<\"No Solution!\"<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.108",
+    "views": 1
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 13,
+  "fields": {
+    "title": "BessiesWeightProblemG",
+    "category": "01背包",
+    "problem_id": "P2639",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nint n,h;\nint w[45003];\nint dp[45003];\nint main(){\n    cin>>h>>n;\n    for(int i=0;i<n;i++)cin>>w[i];\n    for(int i=0;i<n;i++){\n        for(int j=h;j>=w[i];j--){\n            dp[j]=max(dp[j],dp[j-w[i]]+w[i]);\n        }\n    }\n    cout<<dp[h]<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.123",
+    "views": 0
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 14,
+  "fields": {
+    "title": "CharmBraceletS",
+    "category": "01背包",
+    "problem_id": "P2871",
+    "code": "#include<iostream>\nusing namespace std;\nint n,m;\nint w[100005];\nint dp[100005];\nint main() {\n    cin>>m>>n;\n    for(int i=0;i<n;i++){\n        cin>>w[i];\n    }\n    for(int i=0;i<n;i++){\n        for(int j=m;j>=w[i];j--){\n            dp[j]=max(dp[j],dp[j-w[i]] + w[i]);\n        }\n    }\n    cout<<m-dp[m]<<endl;\n   return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.139",
+    "views": 0
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 15,
+  "fields": {
+    "title": "HayForSaleS",
+    "category": "01背包",
+    "problem_id": "P2925",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nint c,h;\nint v[5003];\nint dp[50004];\nint main(){\n    cin>>c>>h;\n    for(int i=0;i<h;i++)cin>>v[i];\n    for(int i=0;i<h;i++){\n        for(int j=c;j>=v[i];j--){\n            dp[j]=max(dp[j],dp[j-v[i]]+v[i]);\n        }\n    }\n    cout<<dp[c]<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.153",
+    "views": 5
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 16,
+  "fields": {
+    "title": "ZUMA_ZUMA",
+    "category": "区间DP",
+    "problem_id": "SP6340",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nll dp[120][120][120];\nll n,col[120],w,ans;\nll f(ll l,ll r,ll k){\n    if(l>r)return 0;\n    if(dp[l][r][k]!=-1)return dp[l][r][k];\n    ll ans=INT_MAX;\n    if(k+1>=w){\n        ans=f(l+1,r,0);\n    }else{\n        ans=f(l,r,k+1)+1;\n    }\n    for(ll i=l+1;i<=r;i++){\n        if(col[l]==col[i]){\n            ans=min(ans,f(l+1,i-1,0)+f(i,r,k+1));\n        }\n    }\n    dp[l][r][k]=ans;\n    return ans;\n}\nint main(){\n    memset(dp,-1,sizeof(dp));\n    cin>>n>>w;\n    for(ll i=1;i<=n;i++)cin>>col[i];\n    cout<<f(1,n,0)<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.181",
+    "views": 2
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 17,
+  "fields": {
+    "title": "NOIP1996提高组挖地雷",
+    "category": "基础DP",
+    "problem_id": "P2196",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nll n;\nll a[30],pre[30];\nll v[30][30];\nll dp[30];\nvoid print(ll x){\n    if(pre[x]==0){\n        cout<<x<<\" \";\n        return;\n    }\n    print(pre[x]);\n    cout<<x<<\" \";\n}\nvoid run(){\n    cin>>n;\n    for(ll i=1;i<=n;i++)cin>>a[i];\n    for(ll i=1;i<=n-1;i++){\n        for(ll j=i+1;j<=n;j++){\n            ll x;cin>>x;\n            if(x==1)v[i][j]=1;\n        }\n    }\n    ll ans=0,t;\n    for(ll i=1;i<=n;i++){\n        for(ll j=1;j<=n;j++){\n            if(v[j][i]&&dp[j]>dp[i]){\n                dp[i]=dp[j];\n                pre[i]=j;\n            }\n        }\n        dp[i]+=a[i];\n        if(dp[i]>ans){\n            ans=dp[i];\n            t=i;\n        }\n    }\n    print(t);cout<<'\\n';\n    cout<<ans<<'\\n';\n}\nint main(){\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    ll _=1;\n    while(_--){\n        run();\n    }\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.189",
+    "views": 0
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 18,
+  "fields": {
+    "title": "_TJOI_2007_线段",
+    "category": "基础DP",
+    "problem_id": "P3842",
+    "code": "#include<bits/stdc++.h>\ntypedef long long ll;\nusing namespace std;\nll n;\nstruct node{\n    ll l,r,len;\n}a[20004];\nll dp[2][20004];\nvoid run(){\n    cin>>n;\n    ll s=0,cur=1;\n    for(ll i=1;i<=n;i++)cin>>a[i].l>>a[i].r,a[i].len=a[i].r-a[i].l;\n    dp[0][1]=a[1].r-1+a[1].len,dp[1][1]=a[1].r-1;\n    for(ll i=2;i<=n;i++){\n       dp[0][i]=min(dp[0][i-1]+abs(a[i].r-a[i-1].l),dp[1][i-1]+abs(a[i].r-a[i-1].r))+a[i].len+1;\n       dp[1][i]=min(dp[0][i-1]+abs(a[i].l-a[i-1].l),dp[1][i-1]+abs(a[i].l-a[i-1].r))+a[i].len+1;\n    }\n    cout<<min(dp[0][n]+n-a[n].l,dp[1][n]+n-a[n].r);\n}\nint main(){\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    ll _=1;\n    while(_--){\n        run();\n    }\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.203",
+    "views": 0
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 19,
+  "fields": {
+    "title": "投资的最大效益",
+    "category": "完全背包",
+    "problem_id": "P1853",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\nll s,n,d,ans;\nll a[20],b[20];\nll dp[50005];\nint main(){\n    cin>>s>>n>>d;\n    for(ll i=0;i<d;i++){\n        cin>>a[i]>>b[i];\n    }\n    for(ll k=1;k<=n;k++){\n        ans=s/1000;\n        for(ll i=0;i<d;i++){\n            for(ll j=a[i]/1000;j<=ans;j++){\n                dp[j]=max(dp[j], dp[j-a[i]/1000] + b[i]);\n            }\n        }\n        s+=dp[ans];\n        memset(dp, 0, sizeof(dp));\n    }\n    cout<<s<<endl;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.219",
+    "views": 2
+  }
+},
+{
+  "model": "blog.acmtemplate",
+  "pk": 20,
+  "fields": {
+    "title": "数字计数",
+    "category": "数位DP",
+    "problem_id": "",
+    "code": "#include<bits/stdc++.h>\nusing namespace std;\n#define ll long long\n//计算一个数字在[l,r]范围内重复了多少次\n//洛谷P2602\n//如果是二进制，把10改为2\n//看题目是否取模\nll count(ll num,ll d){\n    ll ans=0;\n    for(ll right=1,tmp=num,left,cur;tmp!=0;right*=10,tmp/=10){\n        left=tmp/10;\n        cur=tmp%10;\n        if(d==0){\n            left--;\n        }\n        ans+=left*right;\n        if(cur>d){\n            ans+=right;\n        }else if(cur==d){\n            ans+=num%right+1;\n        }\n    }\n    return ans;\n}\nint main(){\n    ll a,b;\n    cin>>a>>b;\n    for(ll i=0;i<=9;i++){\n        cout<<count(b,i)-count(a-1,i)<<\" \";\n    }\n    cout<<'\\n';\n    cout<<438024669335759-438024669333359;\n    return 0;\n}",
+    "description": "",
+    "created_at": "2026-06-19T11:45:07.236",
+    "views": 0
+  }
+}
+]
