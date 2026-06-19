@@ -5,6 +5,7 @@
 {% block title %}关于我 - 陆焱烨的技术博客{% endblock %}
 
 {% block content %}
+{% static 'blog/img/avatar.jpg' as default_avatar %}
 <section class="about-page">
     <h1 class="page-title">关于我</h1>
 
@@ -13,9 +14,9 @@
         <div class="profile-header">
             <div class="profile-avatar">
                 {% if personal_info.avatar %}
-                    <img src="{{ personal_info.avatar.url }}" alt="{{ personal_info.name }}" onerror="this.src='{% static 'blog/img/avatar.jpg' %}'; this.onerror=null;">
+                    <img src="{{ personal_info.avatar.url }}" alt="{{ personal_info.name }}" onerror="this.onerror=null;this.src='{{ default_avatar }}'">
                 {% else %}
-                    <img src="{% static 'blog/img/avatar.jpg' %}" alt="{{ personal_info.name }}">
+                    <img src="{{ default_avatar }}" alt="{{ personal_info.name }}">
                 {% endif %}
             </div>
             <div class="profile-basic">
