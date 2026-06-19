@@ -6,6 +6,7 @@ Django 项目核心配置文件
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 # 项目根目录
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,7 +35,7 @@ INSTALLED_APPS = [
     'blog',
 ]
 
-# 中间件（WhiteNoise 必须放在 SecurityMiddleware 之后）
+# 中间件（WhiteNoise 必须放在 SecurityMiddleware 之后第一位）
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -72,50 +73,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'my_blog.wsgi.application'
 
 
-# 数据库配置
-# 云端（Railway）：使用 dj_database_url 解析 DATABASE_URL（PostgreSQL）
-# 本地：从 .env 读取 MySQL 配置
-_database_url = os.getenv('DATABASE_URL')
-if _database_url:
-    try:
-        import dj_database_url
-        DATABASES = {
-            'default': dj_database_url.config(
-                default=_database_url,
-                conn_max_age=600,
-                ssl_require=True,
-            )
-        }
-    except ImportError:
-        # dj_database_url 未安装时手动解析
-        from urllib.parse import urlparse
-        _parsed = urlparse(_database_url)
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql',
-                'NAME': _parsed.path.lstrip('/'),
-                'USER': _parsed.username or 'postgres',
-                'PASSWORD': _parsed.password or '',
-                'HOST': _parsed.hostname or 'localhost',
-                'PORT': str(_parsed.port or 5432),
-            }
-        }
-else:
-    # 本地开发环境：使用 MySQL
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.getenv('DB_NAME', 'my_weblog'),
-            'USER': os.getenv('DB_USER', 'root'),
-            'PASSWORD': os.getenv('DB_PASSWORD', ''),
-            'HOST': os.getenv('DB_HOST', 'localhost'),
-            'PORT': os.getenv('DB_PORT', '3306'),
-            'OPTIONS': {
-                'charset': 'utf8mb4',
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            },
-        }
-    }
+# 数据库配置：使用 dj_database_url 解析 Railway 的 DATABASE_URL
+# Railway 自动注入 DATABASE_URL（PostgreSQL 连接字符串）
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True,
+    )
+}
 
 
 # 密码验证规则
@@ -134,14 +100,14 @@ USE_I18N = True
 USE_TZ = False  # 关闭时区转换，使用本地时间
 
 
-# 静态文件配置
-STATIC_URL = 'static/'
+# 静态文件配置（生产环境核心）
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-# 生产环境静态文件收集目录（collectstatic 输出到此）
+# collectstatic 收集目录（Railway 构建时生成）
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-# WhiteNoise 压缩静态文件存储（生产环境必需）
+# WhiteNoise 压缩静态文件存储（生产环境必需，自动服务 /static/ 请求）
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
