@@ -50,12 +50,15 @@ db.sqlite3-journal
 *.sqlite3
 
 # ===== 媒体文件（本地用户上传） =====
+# Railway 容器是临时存储，media 文件每次部署后丢失
+# 仅保留目录结构（.gitkeep），不提交实际媒体文件
 media/
 media/uploads/
 media/avatars/
 media/videos/
 media/covers/
 !media/.gitkeep
+!media/avatars/.gitkeep
 
 # ===== 静态文件（collectstatic 生成） =====
 staticfiles/

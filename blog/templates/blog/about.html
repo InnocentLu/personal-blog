@@ -13,7 +13,7 @@
     <div class="about-card profile-card">
         <div class="profile-header">
             <div class="profile-avatar">
-                {% if personal_info.avatar %}
+                {% if personal_info and personal_info.avatar and personal_info.avatar.name %}
                     <img src="{{ personal_info.avatar.url }}" alt="{{ personal_info.name }}" onerror="this.onerror=null;this.src='{{ default_avatar }}'">
                 {% else %}
                     <img src="{{ default_avatar }}" alt="{{ personal_info.name }}">

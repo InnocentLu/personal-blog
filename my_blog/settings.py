@@ -112,6 +112,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # 媒体文件配置（用户上传的图片、视频）
+# 注意：Railway 容器是临时存储，每次部署后 media/ 目录会被清空
+# 通过 Django Admin 上传的文件会丢失，仅 DEBUG=True 时可临时访问
+# 长期方案：集成 AWS S3 / Cloudinary 等云存储服务
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
