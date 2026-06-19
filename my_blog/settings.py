@@ -1,27 +1,26 @@
 """
 Django 项目核心配置文件
-配置数据库、模板、静态文件、媒体文件等
-敏感信息通过 python-dotenv 从 .env 文件读取
-支持本地 MySQL 和云端 PostgreSQL 自动切换
+适配 Railway 平台 PostgreSQL 部署
+敏感信息通过环境变量读取（Railway Variables / .env）
 """
 import os
 from pathlib import Path
-from urllib.parse import urlparse
 from dotenv import load_dotenv
+import dj_database_url
 
 # 项目根目录
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# 加载 .env 环境变量文件
+# 加载本地 .env 环境变量文件（Railway 上自动忽略，使用平台变量）
 load_dotenv(BASE_DIR / '.env')
 
-# 安全密钥（从环境变量读取）
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-default-key')
+# 安全密钥（从环境变量 DJANGO_SECRET_KEY 读取）
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-default-key-for-dev-only')
 
-# 调试模式（从环境变量读取，默认关闭）
+# 调试模式（生产环境必须为 False）
 DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() == 'true'
 
-# 允许访问的主机名（从环境变量读取）
+# 允许访问的主机名（Railway 设置 DJANGO_ALLOWED_HOSTS=*）
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
 # 已安装的应用
@@ -36,9 +35,10 @@ INSTALLED_APPS = [
     'blog',
 ]
 
-# 中间件
+# 中间件（WhiteNoise 必须放在 SecurityMiddleware 之后）
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -46,13 +46,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# 生产环境添加 WhiteNoise 中间件（静态文件服务）
-try:
-    import whitenoise.middleware
-    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
-except ImportError:
-    pass
 
 # 根路由配置
 ROOT_URLCONF = 'my_blog.urls'
@@ -80,47 +73,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'my_blog.wsgi.application'
 
 
-# 数据库配置：自动检测环境
-# 云端（Railway）：通过 DATABASE_URL 环境变量自动识别 MySQL 或 PostgreSQL
-# 本地：通过 .env 配置使用 MySQL
-database_url = os.getenv('DATABASE_URL')
-if database_url:
-    # 云端环境：解析 DATABASE_URL
-    # 格式：mysql://user:pass@host:port/dbname 或 postgres://user:pass@host:port/dbname
-    parsed = urlparse(database_url)
-    # 根据 URL 协议自动选择数据库引擎
-    if parsed.scheme.startswith('postgres'):
-        db_engine = 'django.db.backends.postgresql'
-        db_port = str(parsed.port or 5432)
-    else:
-        db_engine = 'django.db.backends.mysql'
-        db_port = str(parsed.port or 3306)
-    DATABASES = {
-        'default': {
-            'ENGINE': db_engine,
-            'NAME': parsed.path.lstrip('/'),
-            'USER': parsed.username or 'root',
-            'PASSWORD': parsed.password or '',
-            'HOST': parsed.hostname or 'localhost',
-            'PORT': db_port,
-        }
-    }
-else:
-    # 本地环境：使用 MySQL
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.getenv('DB_NAME', 'my_weblog'),
-            'USER': os.getenv('DB_USER', 'root'),
-            'PASSWORD': os.getenv('DB_PASSWORD', ''),
-            'HOST': os.getenv('DB_HOST', 'localhost'),
-            'PORT': os.getenv('DB_PORT', '3306'),
-            'OPTIONS': {
-                'charset': 'utf8mb4',
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            },
-        }
-    }
+# 数据库配置：使用 dj_database_url 解析 Railway 的 DATABASE_URL
+# Railway 自动注入 DATABASE_URL（PostgreSQL 连接字符串）
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True,
+    )
+}
 
 
 # 密码验证规则
@@ -144,8 +105,10 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-# 生产环境静态文件收集目录
+# 生产环境静态文件收集目录（collectstatic 输出到此）
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+# WhiteNoise 压缩静态文件存储（生产环境必需）
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # 媒体文件配置（用户上传的图片、视频）

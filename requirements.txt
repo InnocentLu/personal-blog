@@ -1,8 +1,9 @@
 # Django 个人技术博客项目依赖
 Django==4.2.11
-PyMySQL==1.1.0
 Pillow==10.3.0
 python-dotenv==1.0.1
-# 生产环境部署依赖
-gunicorn==21.2.0
+# 生产环境部署依赖（PostgreSQL + 静态文件 + WSGI 服务器）
 psycopg2-binary==2.9.9
+dj-database-url==2.1.0
+whitenoise==6.6.0
+gunicorn==21.2.0
